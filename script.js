@@ -4,18 +4,26 @@ const gameValues = {
     secretNumber: Math.trunc(Math.random() * 20) + 1,
     playersScore: 20,
     highScore: 0,
+    messageSelector: document.querySelector('.message'),
+    scoreSelector: document.querySelector('.score'),
+    numberSelector: document.querySelector('.number'),
+    bodySelector: document.querySelector('body'),
+    highScoreSelector: document.querySelector('.highscore'),
+    guessSelector: document.querySelector('.guess'),
+    checkSelector: document.querySelector('.check'),
+    againSelector: document.querySelector('.again'),
 };
 
 const editTheMessage = function (message) {
-    document.querySelector('.message').textContent = message;
+    gameValues.messageSelector.textContent = message;
 };
 
 const editTheScore = function (score) {
-    document.querySelector('.score').textContent = `${score}`;
+    gameValues.scoreSelector.textContent = `${score}`;
 };
 
 const editTheNumber = function (number) {
-    document.querySelector('.number').textContent = number;
+    gameValues.numberSelector.textContent = number;
 };
 
 const editTheNumberAndBodyStyle = function (
@@ -24,8 +32,8 @@ const editTheNumberAndBodyStyle = function (
     numberProp,
     numberVal
 ) {
-    document.querySelector('body').style[bodyProp] = `${bodyVal}`;
-    document.querySelector('.number').style[numberProp] = `${numberVal}`;
+    gameValues.bodySelector.style[bodyProp] = `${bodyVal}`;
+    gameValues.numberSelector.style[numberProp] = `${numberVal}`;
 };
 
 const numberValidChecker = function (numberEntered) {
@@ -43,12 +51,12 @@ const numberValidChecker = function (numberEntered) {
 const calculateHighScore = function (currentScore) {
     if (currentScore > gameValues.highScore) {
         gameValues.highScore = currentScore;
-        document.querySelector('.highscore').textContent = currentScore;
+        gameValues.highScoreSelector.textContent = currentScore;
     }
 };
 
 const checkTheAnswer = function () {
-    const guessedNumber = Number(document.querySelector('.guess').value);
+    const guessedNumber = Number(gameValues.guessSelector.value);
     if (numberValidChecker(guessedNumber)) {
         if (gameValues.playersScore > 1) {
             if (guessedNumber !== gameValues.secretNumber) {
@@ -84,8 +92,8 @@ const resetTheGame = function () {
     editTheScore(gameValues.playersScore);
     editTheNumber(`?`);
     editTheNumberAndBodyStyle(`backgroundColor`, `#222`, `width`, `15rem`);
-    document.querySelector('.guess').value = ``;
+    gameValues.guessSelector.value = ``;
 };
 
-document.querySelector('.check').addEventListener('click', checkTheAnswer);
-document.querySelector('.again').addEventListener('click', resetTheGame);
+gameValues.checkSelector.addEventListener('click', checkTheAnswer);
+gameValues.againSelector.addEventListener('click', resetTheGame);
